@@ -23,6 +23,7 @@ class VintiFourPayments extends Controller {
 	}
 
 	public function payments() {
+		return $_POST['timestamp'];
 		$data = base64_encode(hash("sha512", $this->config['posAutCode'], true));
 		$data .= $_POST['timestamp'];
 		$data .= $_POST['amount'] * 1000;
@@ -39,8 +40,6 @@ class VintiFourPayments extends Controller {
 		if ($_POST['referenceNumber']) {
 			$data .= $_POST['referenceNumber'];
 		}
-
-		return $data;
 
 		return base64_encode(hash("sha512", $data, true));
 	}
