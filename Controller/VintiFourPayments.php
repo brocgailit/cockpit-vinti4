@@ -29,8 +29,8 @@ class VintiFourPayments extends Controller {
 		$data .= $_POST['merchantRef'];
 		$data .= $_POST['merchantSession'];
 		$data .= $this->config['posID'];
-		$data .= ($_POST['currency'] || 132); // default to CV
-		$data .= ($_POST['transactionCode'] || 1); //default to 1. Product (2 = Service, 3 = Recharge)
+		$data .= $_POST['currency'] ?? 132; // default to CV
+		$data .= $_POST['transactionCode'] ?? 1; //default to 1. Product (2 = Service, 3 = Recharge)
 
 		if ($_POST['entityCode']) {
 			$data .= $_POST['entityCode'];
