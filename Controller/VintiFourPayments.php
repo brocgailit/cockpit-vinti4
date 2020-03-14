@@ -44,6 +44,10 @@ class VintiFourPayments extends Controller {
 		return base64_encode(hash("sha512", $data, true));
 	}
 
+	public function payment() {
+		return '<html><head><title>Vinti4 Payment</title><script>alert("hello");</script></head><body>Loading...</body></html>';
+	}
+
 	public function response() {
 		return var_dump($_GET);
 	}
