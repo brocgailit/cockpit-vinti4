@@ -52,7 +52,7 @@ class VintiFourPayments extends Controller {
 		$query = \http_build_query($params);
 
 		try {
-			$response = $this->client->request('POST', '?'.$query, [
+			$this->client->request('POST', '?'.$query, [
 				'form_params' => [
 					'transactionCode' => $_GET['transactionCode'] ?? 1,
 					'posID' => $this->config['posID'],
@@ -69,7 +69,7 @@ class VintiFourPayments extends Controller {
 					'posAutCode' => $this->config['posAutCode'],
 				]
 			]);
-			return $response->getBody()->getContents();
+			// return $response->getBody()->getContents();
 		} catch(ClientException $e) {
 				$response = $e->getResponse();
 				return $response->getBody()->getContents();
