@@ -23,7 +23,7 @@ class VintiFourPayments extends Controller {
 		return 'Authorization Required';
 	}
 
-	public function payments() {
+	public function fingerprint() {
 		$data = base64_encode(hash("sha512", $this->config['posAutCode'], true));
 		$data .= $_GET['timestamp'];
 		$data .= $_GET['amount'] * 1000;
@@ -41,39 +41,7 @@ class VintiFourPayments extends Controller {
 			$data .= $_GET['referenceNumber'];
 		}
 
-		$fingerprint = base64_encode(hash("sha512", $data, true));
-
-		$params = array(
-			'FingerPrint' => $fingerprint,
-			'TimeStamp' => $_GET['timestamp'],
-			'FingerPrintVersion' => 1
-		);
-
-		$query = \http_build_query($params);
-
-		try {
-			$this->client->request('POST', '?'.$query, [
-				'form_params' => [
-					'transactionCode' => $_GET['transactionCode'] ?? 1,
-					'posID' => $this->config['posID'],
-					'amount' => $_GET['amount'],
-					'currency' => $_GET['currency'] ?? 132,
-					'is3DSec' => 1,
-					'urlMerchantResponse' => $this->config['urlMerchantResponse'],
-					'fingerPrint' => $fingerprint,
-					'fingerPrintVersion' => 1,
-					'languageMessages' => 'en',
-					'merchantRef' => $_GET['merchantRef'],
-					'merchantSession' => $_GET['merchantSession'],
-					'timestamp' => $_GET['timestamp'],
-					'posAutCode' => $this->config['posAutCode'],
-				]
-			]);
-			// return $response->getBody()->getContents();
-		} catch(ClientException $e) {
-				$response = $e->getResponse();
-				return $response->getBody()->getContents();
-		}
+		return base64_encode(hash("sha512", $data, true));
 	}
 
 	public function response() {
