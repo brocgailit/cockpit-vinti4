@@ -26,7 +26,7 @@ class VintiFourPayments extends Controller {
 	public function fingerprint() {
 		$data = base64_encode(hash("sha512", $this->config['posAutCode'], true));
 		$data .= $_GET['timestamp'];
-		$data .= $_GET['amount'] * 1000;
+		$data .= $_GET['amount'];
 		$data .= $_GET['merchantRef'];
 		$data .= $_GET['merchantSession'];
 		$data .= $this->config['posID'];
