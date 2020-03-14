@@ -52,7 +52,7 @@ class VintiFourPayments extends Controller {
 		$query = \http_build_query($params);
 
 		try {
-			$res = $this->client->request('POST', '?'.$query, [
+			$response = $this->client->request('POST', '?'.$query, [
 				'form_params' => [
 					'transactionCode' => $_POST['transactionCode'] ?? 1,
 					'posID' => $this->config['posID'],
