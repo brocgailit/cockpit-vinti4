@@ -43,9 +43,16 @@ class VintiFourPayments extends Controller {
 
 		$fingerprint = base64_encode(hash("sha512", $data, true));
 
+		$params = array(
+			'FingerPrint' => $fingerprint,
+			'TimeStamp' => $_POST['timestamp'],
+			'FingerPrintVersion' => 1
+		);
+
+		$query = \http_build_query($params);
 
 		try {
-			$res = $this->client->request('POST', '', [
+			$res = $this->client->request('POST', '?'.$query, [
 				'form_params' => [
 					'transactionCode' => $_POST['transactionCode'] ?? 1,
 					'posID' => $this->config['posID'],
