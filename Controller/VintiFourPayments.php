@@ -48,7 +48,7 @@ class VintiFourPayments extends Controller {
 
 		//fallback vars
 		$fingerPrintVersion = $_GET['fingerPrintVersion'] ?? 1;
-		$currency = $_GET['curency'] ?? 132;
+		$currency = $_GET['currency'] ?? 132;
 		$is3DSec = $_GET['is3DSec'] ?? 1;
 		$language = $_GET['language'] ?? 'en';
 
@@ -64,7 +64,7 @@ class VintiFourPayments extends Controller {
 		$page .= '  <title>Vinti4 Payment</title>';
 		$page .= '</head>';
 		$page .= '<body>';
-		$page .= "  <form id=\"vintiPaymentForm\" action=\"{$formUrl}\">";
+		$page .= "  <form id=\"vintiPaymentForm\" action=\"{$formUrl}\" method=\"post\">";
 		$page .= "    <input type=\"hidden\" name=\"transactionCode\" value=\"1\" />";
 		$page .= "    <input type=\"hidden\" name=\"posID\" value=\"{$this->config['posID']}\" />";
 		$page .= "    <input type=\"hidden\" name=\"amount\" value=\"{$_GET['amount']}\" />";
