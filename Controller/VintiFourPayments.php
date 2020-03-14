@@ -26,7 +26,7 @@ class VintiFourPayments extends Controller {
 	public function fingerprint() {
 		$data = base64_encode(hash("sha512", $this->config['posAutCode'], true));
 		$data .= $_GET['timestamp'];
-		$data .= ($_GET['amount'] * 10);
+		$data .= ($_GET['amount'] * 1000);
 		$data .= $_GET['merchantRef'];
 		$data .= $_GET['merchantSession'];
 		$data .= $this->config['posID'];
@@ -51,7 +51,7 @@ class VintiFourPayments extends Controller {
 		$currency = $_GET['currency'] ?? 132;
 		$is3DSec = $_GET['is3DSec'] ?? 1;
 		$language = $_GET['language'] ?? 'en';
-		$amount = $_GET['amount'] / 100;
+		$amount = $_GET['amount'];
 
 		//form setup
 		$formUrl = 'https://mc.vinti4net.cv/Client_VbV_v2/biz_vbv_clientdata.jsp?';
