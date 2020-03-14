@@ -80,7 +80,7 @@ class VintiFourPayments extends Controller {
 		$page .= "    <input type=\"hidden\" name=\"timestamp\" value=\"{$_GET['timestamp']}\" />";
 		$page .= '  </form>';
 		$page .= '  Loading...';
-		// $page .= '  <script>document.getElementById("vintiPaymentForm").submit()</script>';
+		$page .= '  <script>document.getElementById("vintiPaymentForm").submit()</script>';
 		$page .= '</body>';
 		$page .= '</html>';
 
