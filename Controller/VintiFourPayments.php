@@ -82,6 +82,8 @@ class VintiFourPayments extends Controller {
 		$page .= '  <script>document.getElementById("vintiPaymentForm").submit()</script>';
 		$page .= '</body>';
 		$page .= '</html>';
+
+		return $page;
 	}
 
 	public function response() {
