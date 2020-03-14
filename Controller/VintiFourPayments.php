@@ -25,27 +25,27 @@ class VintiFourPayments extends Controller {
 
 	public function payments() {
 		$data = base64_encode(hash("sha512", $this->config['posAutCode'], true));
-		$data .= $_POST['timestamp'];
-		$data .= $_POST['amount'] * 1000;
-		$data .= $_POST['merchantRef'];
-		$data .= $_POST['merchantSession'];
+		$data .= $_GET['timestamp'];
+		$data .= $_GET['amount'] * 1000;
+		$data .= $_GET['merchantRef'];
+		$data .= $_GET['merchantSession'];
 		$data .= $this->config['posID'];
-		$data .= $_POST['currency'] ?? 132; // default to CV
-		$data .= $_POST['transactionCode'] ?? 1; //default to 1. Product (2 = Service, 3 = Recharge)
+		$data .= $_GET['currency'] ?? 132; // default to CV
+		$data .= $_GET['transactionCode'] ?? 1; //default to 1. Product (2 = Service, 3 = Recharge)
 
-		if ($_POST['entityCode']) {
-			$data .= $_POST['entityCode'];
+		if ($_GET['entityCode']) {
+			$data .= $_GET['entityCode'];
 		}
 
-		if ($_POST['referenceNumber']) {
-			$data .= $_POST['referenceNumber'];
+		if ($_GET['referenceNumber']) {
+			$data .= $_GET['referenceNumber'];
 		}
 
 		$fingerprint = base64_encode(hash("sha512", $data, true));
 
 		$params = array(
 			'FingerPrint' => $fingerprint,
-			'TimeStamp' => $_POST['timestamp'],
+			'TimeStamp' => $_GET['timestamp'],
 			'FingerPrintVersion' => 1
 		);
 
@@ -54,18 +54,18 @@ class VintiFourPayments extends Controller {
 		try {
 			$response = $this->client->request('POST', '?'.$query, [
 				'form_params' => [
-					'transactionCode' => $_POST['transactionCode'] ?? 1,
+					'transactionCode' => $_GET['transactionCode'] ?? 1,
 					'posID' => $this->config['posID'],
-					'amount' => $_POST['amount'],
-					'currency' => $_POST['currency'] ?? 132,
+					'amount' => $_GET['amount'],
+					'currency' => $_GET['currency'] ?? 132,
 					'is3DSec' => 1,
 					'urlMerchantResponse' => $this->config['urlMerchantResponse'],
 					'fingerPrint' => $fingerprint,
 					'fingerPrintVersion' => 1,
 					'languageMessages' => 'en',
-					'merchantRef' => $_POST['merchantRef'],
-					'merchantSession' => $_POST['merchantSession'],
-					'timestamp' => $_POST['timestamp'],
+					'merchantRef' => $_GET['merchantRef'],
+					'merchantSession' => $_GET['merchantSession'],
+					'timestamp' => $_GET['timestamp'],
 					'posAutCode' => $this->config['posAutCode'],
 				]
 			]);
