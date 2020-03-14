@@ -51,6 +51,7 @@ class VintiFourPayments extends Controller {
 		$currency = $_GET['currency'] ?? 132;
 		$is3DSec = $_GET['is3DSec'] ?? 1;
 		$language = $_GET['language'] ?? 'en';
+		$amount = $_GET['amount'] / 100;
 
 		//form setup
 		$formUrl = 'https://mc.vinti4net.cv/Client_VbV_v2/biz_vbv_clientdata.jsp?';
@@ -67,7 +68,7 @@ class VintiFourPayments extends Controller {
 		$page .= "  <form id=\"vintiPaymentForm\" action=\"{$formUrl}\" method=\"post\">";
 		$page .= "    <input type=\"hidden\" name=\"transactionCode\" value=\"1\" />";
 		$page .= "    <input type=\"hidden\" name=\"posID\" value=\"{$this->config['posID']}\" />";
-		$page .= "    <input type=\"hidden\" name=\"amount\" value=\"{$_GET['amount']}\" />";
+		$page .= "    <input type=\"hidden\" name=\"amount\" value=\"{$amount}\" />";
 		$page .= "    <input type=\"hidden\" name=\"currency\" value=\"{$currency}\" />";
 		$page .= "    <input type=\"hidden\" name=\"is3DSec\" value=\"{$is3DSec}\" />";
 		$page .= "    <input type=\"hidden\" name=\"urlMerchantResponse\" value=\"{$_GET['urlMerchantResponse']}\" />";
