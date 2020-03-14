@@ -69,7 +69,7 @@ class VintiFourPayments extends Controller {
 					'posAutCode' => $this->config['posAutCode'],
 				]
 			]);
-			return $res->getBody();
+			return $response->getBody()->getContents();
 		} catch(ClientException $e) {
 				$response = $e->getResponse();
 				return $response->getBody()->getContents();
