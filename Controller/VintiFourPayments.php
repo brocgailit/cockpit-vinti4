@@ -40,8 +40,6 @@ class VintiFourPayments extends Controller {
 			$data .= $_POST['referenceNumber'];
 		}
 
-		return $data;
-
 		return base64_encode(hash("sha512", $data, true));
 	}
 
